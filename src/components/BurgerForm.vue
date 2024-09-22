@@ -5,13 +5,13 @@
             <form id="burger-form" @submit="createBurguer">
                 <div class="input-container">
                     <label for="name">Nome do cliente </label>
-                    <input type="text" name="name" id="name" v-model="name" placeholder="Digite o seu nome">
+                    <input type="text" name="name" id="name" v-model="nome" placeholder="Digite o seu nome">
                 </div>
                 <div class="input-container">
-                    <label for="bread">Escolha o pão: </label>
-                    <select name="bread" id="bread" v-model="bread">
+                    <label for="pao">Escolha o pão: </label>
+                    <select name="pao" id="pao" v-model="pao">
                         <option value="">Selecione o seu pão</option>
-                        <option v-for="bread in breads" :key="bread.id" :value="bread.tipo">{{ bread.tipo }}</option>
+                        <option v-for="pao in paes" :key="pao.id" :value="pao.tipo">{{ pao.tipo }}</option>
                     </select>
                 </div>
                 <div class="input-container">
@@ -46,11 +46,11 @@ import Message from './Message.vue';
         },
         data() {
             return {
-                breads: null,
+                paes: null,
                 meats: null,
                 optionalsData: null,
-                name: null,
-                bread: "",
+                nome: null,
+                pao: "",
                 meat: "",
                 optionals: [],
                 msg: null
@@ -61,7 +61,7 @@ import Message from './Message.vue';
                 const req = await fetch("http://localhost:3000/ingredientes")
                 const data = await req.json()
 
-                this.breads = data.paes;
+                this.paes = data.paes;
                 this.meats = data.carnes;
                 this.optionalsData = data.opcionais;
 
@@ -71,10 +71,10 @@ import Message from './Message.vue';
                 e.preventDefault()
 
                 const data = {
-                    name: this.name,
-                    bread: this.bread,
-                    meat: this.meat,
-                    optionals: Array.from(this.optionals),
+                    nome: this.nome,
+                    pao: this.pao,
+                    carne: this.meat,
+                    opcionais: Array.from(this.optionals),
                     status: "Solicitado"
                 }
 
@@ -92,10 +92,10 @@ import Message from './Message.vue';
 
                 setTimeout(() => this.msg = "", 3000)
 
-                this.name = ""
-                this.meat = ""
-                this.bread = ""
-                this.optionals = []
+                this.nome = ""
+                this.carne = ""
+                this.pao = ""
+                this.opcionais = []
             }
         },
         mounted() {
